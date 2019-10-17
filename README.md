@@ -1,48 +1,61 @@
 
-// C++ program for insertion sort  
-#include <bits/stdc++.h> 
-using namespace std; 
+
+// C program for implementation of binary insertion sort 
+#include <stdio.h> 
   
-/* Function to sort an array using insertion sort*/
-void insertionSort(int arr[], int n)  
-{  
-    int i, key, j;  
-    for (i = 1; i < n; i++) 
-    {  
-        key = arr[i];  
-        j = i - 1;  
+// A binary search based function to find the position 
+// where item should be inserted in a[low..high] 
+int binarySearch(int a[], int item, int low, int high) 
+{ 
+    if (high <= low) 
+        return (item > a[low])?  (low + 1): low; 
   
-        /* Move elements of arr[0..i-1], that are  
-        greater than key, to one position ahead  
-        of their current position */
-        while (j >= 0 && arr[j] > key) 
-        {  
-            arr[j + 1] = arr[j];  
-            j = j - 1;  
-        }  
-        arr[j + 1] = key;  
-    }  
-}  
+    int mid = (low + high)/2; 
   
-// A utility function to print an array of size n  
-void printArray(int arr[], int n)  
-{  
-    int i;  
-    for (i = 0; i < n; i++)  
-        cout << arr[i] << " ";  
-    cout << endl; 
-}  
+    if(item == a[mid]) 
+        return mid+1; 
   
-/* Driver code */
-int main()  
-{  
-    int arr[] = { 12, 11, 13, 5, 6 };  
-    int n = sizeof(arr) / sizeof(arr[0]);  
+    if(item > a[mid]) 
+        return binarySearch(a, item, mid+1, high); 
+    return binarySearch(a, item, low, mid-1); 
+} 
   
-    insertionSort(arr, n);  
-    printArray(arr, n);  
+// Function to sort an array a[] of size 'n' 
+void insertionSort(int a[], int n) 
+{ 
+    int i, loc, j, k, selected; 
   
-    return 0;  
-}  
+    for (i = 1; i < n; ++i) 
+    { 
+        j = i - 1; 
+        selected = a[i]; 
   
-// This is code is contributed by rathbhupendra 
+        // find location where selected sould be inseretd 
+        loc = binarySearch(a, selected, 0, j); 
+  
+        // Move all elements after location to create space 
+        while (j >= loc) 
+        { 
+            a[j+1] = a[j]; 
+            j--; 
+        } 
+        a[j+1] = selected; 
+    } 
+} 
+  
+// Driver program to test above function 
+int main() 
+{ 
+    int a[] = {37, 23, 0, 17, 12, 72, 31, 
+              46, 100, 88, 54}; 
+    int n = sizeof(a)/sizeof(a[0]), i; 
+  
+    insertionSort(a, n); 
+  
+    printf("Sorted array: \n"); 
+    for (i = 0; i < n; i++) 
+        printf("%d ",a[i]); 
+  
+    return 0; 
+} 
+
