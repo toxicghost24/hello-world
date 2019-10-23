@@ -1,4 +1,4 @@
-
+// this is a program to sort an array using merge sort 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
