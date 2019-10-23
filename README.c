@@ -3,6 +3,21 @@
 #include <stdlib.h>
 #include <string.h>
 int t=0;
+int concat(char *str1,char *str2)
+{
+    int a=strlen(str1),b=strlen(str2),c;
+    char *str3=(char*)malloc((a+b)*sizeof(char));       //creating another one so to put both the strings in one
+    for(c=0;c<a;c++)
+    {
+        str3[c]=str1[c];                              //inputing the first string
+    }
+    for(c=0;c<b;c++)
+    {
+        str3[c+a]=str2[c];                            //inputing the second string
+    }
+    printf("%s",str3);                       //printing the third string
+    return 0;
+}
 int merge(long long a[],int b,int m,int c)    //to merge the two arrays
 {
 	int e,f,g;
